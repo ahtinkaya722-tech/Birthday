@@ -1,0 +1,587 @@
+/* ==========================================================================
+   RESET & SYSTEM VARIABLES
+   ========================================================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --bg: #faf9f6;             /* Soft Alabaster White */
+  --surface: #ffffff;        /* Pure White */
+  --text: #1a1a1a;           /* Deep Charcoal */
+  --text-soft: #707070;      /* Muted Warm Gray */
+  --accent: #d4af37;         /* Subtle Matte Gold */
+  --accent-light: #f4efe2;   /* Soft Champagne Tint */
+  --border: #eaeaea;         /* Clean, faint border line */
+  --radius: 12px;            /* Sleek, subtle corner rounding */
+  --transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+  line-height: 1.7;
+  letter-spacing: -0.01em;
+}
+
+#bg-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.4;              /* Softens background animations */
+}
+
+/* ==========================================================================
+   LAYOUT UTILITIES
+   ========================================================================== */
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+.section {
+  padding: 140px 0;
+}
+
+.section-title {
+  font-family: 'Dancing Script', cursive;
+  font-size: 3.5rem;
+  text-align: center;
+  margin-bottom: 8px;
+  color: var(--text);
+  font-weight: 400;
+}
+
+.section-subtitle {
+  text-align: center;
+  color: var(--text-soft);
+  margin-bottom: 64px;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+/* ==========================================================================
+   HERO DISPLAY
+/* ==========================================================================
+   HERO DISPLAY (MINIMALIST GLASS UPDATE)
+   ========================================================================== */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  background-color: var(--bg);
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+
+  background: url('image/photo_2026-07-15_00-38-19.jpg') center bottom 20% / cover no-repeat;
+  z-index: 0;
+  opacity: 1;            
+  filter: grayscale(20%);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 700px;
+  padding: 56px 48px;
+  
+  /* Minimalist Transparent Glass Architecture */
+  background: rgba(255, 255, 255, 0.01);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(13px);
+  
+  /* Clean, crisp styling instead of heavy borders */
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: var(--radius);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.04);
+}
+
+.subtitle {
+  font-size: 1rem;
+  color: black;
+  font-weight: 500;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.name {
+  font-family: 'Dancing Script', cursive;
+  font-size: 5.5rem;
+  color: var(--text);
+  margin-bottom: 8px;
+  font-weight: 400;
+}
+
+.date {
+  font-size: 2rem;
+  color: var(--accent);
+  -webkit-text-stroke-color: whitesmoke;
+  -webkit-text-stroke-width: 0.02rem;
+  margin-bottom: 8px;
+  font-weight: 500;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+.age-display {
+  font-size: 2rem;
+  color: var(--text-soft);
+  margin-bottom: 40px;
+    font-weight: 500;
+  letter-spacing: 1px;
+}
+
+.wish {
+  font-size: 1.05rem;
+  color: var(--text);
+  max-width: 580px;
+  margin: 0 auto 48px;
+  line-height: 2;
+  font-weight: 300;
+}
+
+.wish.myanmar {
+  font-weight: 400;
+  color: #2b2b2b;
+}
+
+.cta-button {
+  display: inline-block;
+  padding: 14px 36px;
+  background: var(--text);
+  color: var(--surface);
+  text-decoration: none;
+  border-radius: 4px;       /* Sharp minimalist borders */
+  font-weight: 500;
+  font-size: 0.9rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  transition: var(--transition);
+  border: 1px solid var(--text);
+}
+
+.cta-button:hover {
+  background: transparent;
+  color: var(--text);
+  transform: translateY(-2px);
+}
+
+.floating-hearts {
+  display: none;             /* Hidden to ensure clean visual styling */
+}
+
+/* ==========================================================================
+   MEMORIES GALLERY
+   ========================================================================== */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+}
+
+.gallery-item {
+  aspect-ratio: 1 / 1;       /* Square aesthetic sizing */
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  transition: var(--transition);
+}
+
+.gallery-item:hover {
+  transform: translateY(-4px);
+  border-color: var(--text-soft);
+}
+
+.gallery-item.placeholder {
+  background: var(--surface);
+  border: 1px dashed var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gallery-item.placeholder span {
+  color: var(--text-soft);
+  font-weight: 400;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: var(--transition);
+}
+
+.gallery-item:hover img {
+  transform: scale(1.03);
+}
+
+/* ==========================================================================
+   REASONS CARDS
+   ========================================================================== */
+.reasons-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 24px;
+}
+
+.reason-card {
+  background: var(--surface);
+  padding: 48px 32px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  transition: var(--transition);
+}
+
+.reason-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--text-soft);
+}
+
+.reason-icon {
+  font-size: 1.8rem;
+  margin-bottom: 24px;
+  filter: grayscale(30%);
+}
+
+.reason-card p {
+  font-size: 0.95rem;
+  color: var(--text);
+  font-weight: 300;
+}
+
+/* ==========================================================================
+   FLIP CARDS (THINGS I LIKE)
+   ========================================================================== */
+.flip-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 24px;
+  perspective: 1000px;
+}
+
+.flip-card {
+  height: 240px;
+  perspective: 1000px;
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  transform-style: preserve-3d;
+}
+
+.flip-card:hover .flip-card-inner,
+.flip-card.flipped .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+.flip-card-front,
+.flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: var(--radius);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+  border: 1px solid var(--border);
+}
+
+.flip-card-front {
+  background: var(--surface);
+  color: var(--text);
+}
+
+.flip-card-back {
+  background: var(--text);
+  color: var(--surface);
+  transform: rotateY(180deg);
+  border-color: var(--text);
+}
+
+.flip-card .heart {
+  font-size: 1.5rem;
+  margin-bottom: 16px;
+  color: var(--accent);
+}
+
+.flip-card-front p {
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.8rem;
+}
+
+.flip-card-back p {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  font-weight: 300;
+}
+
+/* ==========================================================================
+   INTERACTIVE CAKE ELEMENTS
+   ========================================================================== */
+.cake-section {
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.cake-stage {
+  position: relative;
+  height: 320px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 48px;
+}
+
+/* Minimalist Vector Cake Architecture */
+.cake-wrapper {
+  position: relative;
+  margin-top: 40px;
+}
+
+.cake {
+  position: relative;
+  width: 200px;
+  height: 140px;
+}
+
+.cake-body {
+  position: absolute;
+  bottom: 0;
+  left: 10px;
+  width: 180px;
+  height: 90px;
+  background: var(--accent-light);
+  border-radius: 4px 4px 12px 12px;
+  border: 1px solid rgba(0,0,0,0.05);
+}
+
+.cake-top {
+  position: absolute;
+  bottom: 82px;
+  left: 10px;
+  width: 180px;
+  height: 16px;
+  background: #ebe4d3;
+  border-radius: 50%;
+}
+
+.cake-plate {
+  position: absolute;
+  bottom: -4px;
+  left: -10px;
+  width: 220px;
+  height: 8px;
+  background: var(--border);
+  border-radius: 2px;
+}
+
+.candle {
+  position: absolute;
+  bottom: 90px;
+  width: 6px;
+  height: 32px;
+  background: var(--text-soft);
+  border-radius: 2px 2px 0 0;
+}
+
+.candle-1 { left: 55px; }
+.candle-2 { left: 97px; }
+.candle-3 { left: 139px; }
+
+.flame {
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 8px;
+  height: 14px;
+  background: var(--accent);
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  opacity: 0;
+  transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.flame.lit {
+  opacity: 1;
+}
+
+.flame.blown {
+  opacity: 0;
+}
+
+.cake-controls {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 48px;
+}
+
+.control-btn {
+  padding: 12px 28px;
+  border: 1px solid var(--text);
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  background: transparent;
+  color: var(--text);
+  transition: var(--transition);
+}
+
+.control-btn:hover:not(:disabled) {
+  background: var(--text);
+  color: var(--surface);
+}
+
+.control-btn:disabled {
+  border-color: var(--border);
+  color: var(--border);
+  cursor: not-allowed;
+}
+
+.control-btn.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--surface);
+}
+
+.final-message {
+  opacity: 0;
+  transform: translateY(15px);
+  transition: var(--transition);
+  text-align: center;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.final-message.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.big-text {
+  font-family: 'Dancing Script', cursive;
+  font-size: 2.8rem;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+.final-message p:not(.big-text) {
+  font-size: 0.95rem;
+  color: var(--text-soft);
+  font-weight: 300;
+}
+
+/* ==========================================================================
+   SIGN-OFF & ENDING
+   ========================================================================== */
+.ending-section {
+  text-align: center;
+  background: var(--bg);
+}
+
+.ending-content {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.ending-content h2 {
+  font-family: 'Dancing Script', cursive;
+  font-size: 3rem;
+  color: var(--text);
+  margin-bottom: 16px;
+  font-weight: 400;
+}
+
+.ending-content p {
+  font-size: 1.05rem;
+  color: var(--text-soft);
+  font-weight: 300;
+}
+
+.ending-content .signature {
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.6rem;
+  color: var(--accent);
+  margin-top: 40px;
+}
+
+/* ==========================================================================
+   FOOTER RUNTIME
+   ========================================================================== */
+footer {
+  text-align: center;
+  padding: 40px 24px;
+  font-size: 0.8rem;
+  color: var(--text-soft);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  border-top: 1px solid var(--border);
+  background: var(--surface);
+}
+
+/* ==========================================================================
+   RESPONSIVE LAYOUTS
+   ========================================================================== */
+@media (max-width: 768px) {
+  .section {
+    padding: 90px 0;
+  }
+
+  .name {
+    font-size: 3.8rem;
+  }
+
+  .section-title,
+  .ending-content h2 {
+    font-size: 2.6rem;
+  }
+
+  .wish {
+    font-size: 0.95rem;
+  }
+  
+  .gallery-grid, 
+  .reasons-grid, 
+  .flip-cards-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
