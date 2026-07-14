@@ -93,7 +93,7 @@ body {
   position: absolute;
   inset: 0;
 
-  background: url('image/photo_2026-07-15_00-38-19.jpg') center bottom 20% / cover no-repeat;
+  background: url('assets/image/photo_2026-07-15_00-38-19.jpg') center bottom 20% / cover no-repeat;
   z-index: 0;
   opacity: 1;            
   filter: grayscale(20%);
@@ -138,6 +138,7 @@ body {
   color: var(--accent);
   -webkit-text-stroke-color: whitesmoke;
   -webkit-text-stroke-width: 0.02rem;
+  text-shadow: 2px 2px 2px var(--text); 
   margin-bottom: 8px;
   font-weight: 500;
   letter-spacing: 3px;
