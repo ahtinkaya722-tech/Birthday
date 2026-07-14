@@ -93,7 +93,7 @@ body {
   position: absolute;
   inset: 0;
 
-  background: url('assets/image/photo_2026-07-15_00-38-19.jpg') center bottom 20% / cover no-repeat;
+  background: url('assets/Image/photo_2026-07-15_00-38-19.jpg') center bottom 20% / cover no-repeat;
   z-index: 0;
   opacity: 1;            
   filter: grayscale(20%);
@@ -430,18 +430,32 @@ body {
   transform: translateX(-50%);
   width: 8px;
   height: 14px;
-  background: var(--accent);
+  background: radial-gradient(ellipse at bottom, #fff 0%, var(--accent) 40%, #c77dff 100%);
   border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
   opacity: 0;
   transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 0 12px var(--accent), 0 0 24px rgba(212, 175, 55, 0.5);
 }
 
 .flame.lit {
   opacity: 1;
+  animation: flicker 0.12s ease-in-out infinite alternate;
 }
 
 .flame.blown {
   opacity: 0;
+  animation: blow-out 0.4s ease-out forwards;
+}
+
+@keyframes flicker {
+  0% { transform: translateX(-50%) scale(1) rotate(-2deg); }
+  100% { transform: translateX(-50%) scale(1.1) rotate(2deg); }
+}
+
+@keyframes blow-out {
+  0% { opacity: 1; transform: translateX(-50%) scale(1); }
+  50% { opacity: 0.5; transform: translateX(-50%) scale(1.4) skewX(20deg); }
+  100% { opacity: 0; transform: translateX(-50%) scale(0) skewX(30deg); }
 }
 
 .cake-controls {
